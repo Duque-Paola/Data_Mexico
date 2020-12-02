@@ -17,16 +17,19 @@ from collections import Counter
 from matplotlib.offsetbox import AnchoredText
 import matplotlib.ticker as ticker
 #%%
-path = "/home/nacho/Documents/coronavirus/COVID-19_Paper/"
+entidad_federativa = 14
+entidad_federativa_str = "Jalisco"
+#%%
+path = "/home/nacho/Documents/coronavirus/Data_Mexico"
 #path = "D:\ricar\Documents\Development\Python\COVID-19_Paper"
 os.chdir(os.path.join(path)) 
-df_og = pd.read_csv("covid_data.zip")
+df_og = pd.read_csv("data/covid_data.zip")
 #SOLO CASOS POSITIVOS COVID
 df_og = df_og[df_og.RESULTADO == 1] #En caso de que se quiera filtrar por s{olo los que dieron positivo
 df_og.drop(['RESULTADO'], axis=1, inplace = True)
 df= df_og.copy()
-#Solo Jalisco
-df.drop(df[(df['ENTIDAD_UM'] != 14)].index, inplace = True)
+#Solo entidad
+df.drop(df[(df['ENTIDAD_UM'] != entidad_federativa)].index, inplace = True)
 #%%Numero de casos
 print("Numero de casos positivos de COVID: ", len(df))
 print("Numero de hospitalizados por COVID: ", df.TIPO_PACIENTE.value_counts()[1])
@@ -394,7 +397,7 @@ def casos_nuevos_total(df,estado, estado_str):
     plt.legend()
     #plt.tight_layout()
     return df_fechas_mex
-serie_tiempo_nuevo = casos_nuevos_total(df,estado=14, estado_str='Jalisco')
+serie_tiempo_nuevo = casos_nuevos_total(df,estado=entidad_federativa, estado_str=entidad_federativa_str)
 #%%SERIE TIEMPO CASOS ACUM
 def casos_acum_indiv(df,titulo, columna_fecha, estado=None):
     if estado != None:
@@ -448,7 +451,7 @@ def casos_acum_total(df,estado, estado_str):
     plt.legend()
     plt.tight_layout()
     return df_fechas_mex
-serie_tiempo_acum = casos_acum_total(df,estado=14, estado_str="Jalisco")
+serie_tiempo_acum = casos_acum_total(df,estado=entidad_federativa, estado_str=entidad_federativa_str)
 #%%TASA CSOS POR RANGO EDAD
 def grafica16(df):
     df['edad_rango'] = pd.cut(x=df['EDAD'], bins=[0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,max(df['EDAD'])], 
@@ -531,7 +534,7 @@ def mort_porcentaje(df,estado, estado_str):
     plt.ylabel("Porcentaje")
     plt.legend()
     plt.tight_layout()
-mort_porcentaje(df,estado=14, estado_str="Jalisco")
+mort_porcentaje(df,estado=entidad_federativa, estado_str=entidad_federativa_str)
 #%%MATRIZ CORRELACION
 def mat_corr(df):
     #hacer columna de hombre y de mujer para reemplazar sexo
