@@ -139,7 +139,7 @@ def grafica5(df):
     plot_date(ax)
     fig.tight_layout()
 grafica5(df)
-#%%DIST DEF EDADES
+#%%DIST EDADES
 #https://datavizpyr.com/overlapping-histograms-with-matplotlib-in-python/
 def grafica6(df):
     fig, ax = plt.subplots()
@@ -147,10 +147,9 @@ def grafica6(df):
     df_def = df.loc[df.BOOL_DEF == 1]['EDAD']
     df_cont = df['EDAD']
     df_hosp = df.loc[df.TIPO_PACIENTE == 1]['EDAD']
-    df_uci = df.loc[df.UCI == 1]['EDAD']
-    sns.distplot(df_def, label="hosp")
-    sns.distplot(df_cont, label="cont")
-    sns.distplot(df_hosp, label="uci").set_title("Muertes de COVID-19 por edades")  
+    sns.distplot(df_def, label="Defunción")
+    sns.distplot(df_cont, label="Contagios")
+    sns.distplot(df_hosp, label="Hospitalización").set_title("Muertes de COVID-19 por edades")  
     plt.legend()
 
     plt.show()
@@ -172,7 +171,7 @@ def grafica7(df):
 grafica7(df)
 grafica7(df_og)
 #%%DIST DIAS DEF
-def dias_dif():
+def dias_dif(df):
     def reject_outliers(data, m=2):
         return data[abs(data - np.mean(data)) < m * np.std(data)]
     HOSP = reject_outliers(np.asarray(df['DIAS_DIF_HOSP']))
@@ -185,6 +184,8 @@ def dias_dif():
     ax.xaxis.set_major_locator(ticker.MultipleLocator(5))
     ax.xaxis.set_major_formatter(ticker.ScalarFormatter())
     plt.show()
+dias_dif(df)
+dias_dif(df_og)
 #%%DEF EDADES SEXO
 def grafica9(df):
     df['edad_rango'] = pd.cut(x=df['EDAD'], bins=[0,17,44,64,74,max(df['EDAD'])], labels=['0-17','18-44','45-64','65-74','+75'])
