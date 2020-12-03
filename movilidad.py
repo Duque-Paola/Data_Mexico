@@ -59,7 +59,7 @@ ax.set_ylabel("Movilidad")
 ax.set_xlabel("Tiempo")
 ax.set_title("Movilidad en Jalisco 2020")
 plt.xticks(rotation='vertical')
-ax.legend()
+ax.legend(loc="lower left", bbox_to_anchor=(1,0)) 
 
         
 
