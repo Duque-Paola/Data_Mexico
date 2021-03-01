@@ -5,6 +5,7 @@ Created on Wed Dec  2 19:06:34 2020
 
 @author: nacho
 """
+#%%
 import pandas as pd
 import numpy as np
 import seaborn as sns; sns.set()
@@ -17,7 +18,8 @@ import matplotlib.ticker as ticker
 #%%
 path = "/home/nacho/Documents/coronavirus/Data_Mexico"
 os.chdir(os.path.join(path)) 
-violencia_og = pd.read_csv("data/IDEFC_NM_oct2020.csv", encoding='utf-8')
+#violencia_og = pd.read_csv("data/IDEFC_NM_oct2020.csv", encoding='utf-8')
+delitos_df = pd.read_csv("data/IDEFC_NM_dic2020.csv", encoding='latin-1',thousands=',')
 #%%JALISCO
 violencia_jalisco_2020 = violencia_og[(violencia_og['Entidad'] == 'Jalisco') &  (violencia_og['Tipo de delito'] == 'Violencia familiar') & (violencia_og['Año']== 2020) ]
 violencia_jalisco_2020 = violencia_jalisco_2020[['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre']]
